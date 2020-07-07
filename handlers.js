@@ -9,12 +9,12 @@ const handleFlight = (req, res) => {
   const allFlights = Object.keys(flights);
   // is flightNumber in the array?
   if (!flightNumber) {
-    return res.json(allFlights);
+    res.send(allFlights);
   } else {
     try {
-      return res.status(200).json(flights[flightNumber]);
+      res.status(200).send(flights[flightNumber]);
     } catch (err) {
-      return res.status(404).json("Sorry, this flight does not exist");
+      res.status(404).send("Sorry, this flight does not exist");
     }
   }
 };
