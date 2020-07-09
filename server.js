@@ -4,12 +4,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 
-const {
-  handleFlight,
-  postUsers,
-  getUsers,
-  handleReservation,
-} = require("./handlers");
+const { handleFlight, postUsers, getUserRes } = require("./handlers");
 
 const PORT = process.env.PORT || 8000;
 
@@ -30,8 +25,7 @@ express()
 
   // endpoints
   .get(["/flights", "/flights/:flightNumber"], handleFlight)
-  .get("/seat-select/confirmed.html", handleReservation)
-  .get("/slingair/users?limit", getUsers)
+  .get("/users/:reservation", getUserRes)
   .post("/users", postUsers)
   .use("*", (req, res) => res.send("Not Found"))
   .listen(PORT, () => console.log(`Listening on port ${PORT}`));

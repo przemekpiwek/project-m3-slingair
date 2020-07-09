@@ -19,35 +19,22 @@ const handleFlight = (req, res) => {
   }
 };
 
-const handleReservation = (req, res) => {
-  // const { reservationId } = req.params;
-  // const userObject = reservations.find((users) => {
-  //   return users.id === reservationId;
-  // });
-  // res.send(userObject);
-  res.send("yoooooo");
-  // res.status(202).render("/public/seat-select/index.html");
-};
-
 const postUsers = (req, res) => {
   try {
     const data = req.body;
     data.id = uuidv4();
     reservations.push(data);
-    res.status(200).json(data);
+    res.status(200).send(data);
   } catch (err) {
     res.status(400).send(err);
   }
 };
 
-const getUsers = (req, res) => {
-  const limit = req.query.limit;
+const getUserRes = (req, res) => {
   try {
-    if (limit) {
-      res.status(200).send(reservations.splice(0, limit));
-    } else {
-      res.status(200).send(reservations);
-    }
+    const { reservation } = req.params;
+    const userObject = reservations.find((res) => res.id === reservation);
+    res.status(200).json(userObject);
   } catch (err) {
     res.status(404).send("not working");
   }
@@ -56,6 +43,5 @@ const getUsers = (req, res) => {
 module.exports = {
   handleFlight,
   postUsers,
-  getUsers,
-  handleReservation,
+  getUserRes,
 };

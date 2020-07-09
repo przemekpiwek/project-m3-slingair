@@ -101,7 +101,8 @@ const handleConfirmSeat = async (event) => {
     },
   });
   const json = await response.json();
-  window.location = `./confirmed.html${json.id}`;
+  console.log("test");
+  window.location = `/seat-select/confirmed.html?reservationId=${json.id}`;
 };
 
 flightInput.addEventListener("change", toggleFormContent);
