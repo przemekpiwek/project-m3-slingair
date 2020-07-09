@@ -19,16 +19,25 @@ const handleFlight = (req, res) => {
   }
 };
 
-const handleSeatSelect = (req, res) => {
-  //render the seat select UI and form submission
-  res.status(202).render("/public/seat-select/index.html");
+const handleReservation = (req, res) => {
+  // const { reservationId } = req.params;
+  // const userObject = reservations.find((users) => {
+  //   return users.id === reservationId;
+  // });
+  // res.send(userObject);
+  res.send("yoooooo");
+  // res.status(202).render("/public/seat-select/index.html");
 };
 
 const postUsers = (req, res) => {
-  const data = req.body;
-  data.id = uuidv4();
-  reservations.push(data);
-  console.log(data);
+  try {
+    const data = req.body;
+    data.id = uuidv4();
+    reservations.push(data);
+    res.status(200).json(data);
+  } catch (err) {
+    res.status(400).send(err);
+  }
 };
 
 const getUsers = (req, res) => {
@@ -44,14 +53,9 @@ const getUsers = (req, res) => {
   }
 };
 
-const handleConfirm = (req, res) => {
-  res.render();
-};
-
 module.exports = {
   handleFlight,
-  handleSeatSelect,
   postUsers,
   getUsers,
-  handleConfirm,
+  handleReservation,
 };

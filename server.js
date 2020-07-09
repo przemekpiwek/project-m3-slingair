@@ -6,10 +6,9 @@ const morgan = require("morgan");
 
 const {
   handleFlight,
-  handleSeatSelect,
   postUsers,
   getUsers,
-  handleConfirm,
+  handleReservation,
 } = require("./handlers");
 
 const PORT = process.env.PORT || 8000;
@@ -23,16 +22,16 @@ express()
     );
     next();
   })
+
   .use(morgan("dev"))
   .use(express.static("public"))
   .use(bodyParser.json())
   .use(express.urlencoded({ extended: false }))
 
   // endpoints
-  .get("/seat-select", handleSeatSelect)
   .get(["/flights", "/flights/:flightNumber"], handleFlight)
-  .get("/:reservationId", handleConfirm)
-  .post("/users", postUsers)
+  .get("/seat-select/confirmed.html", handleReservation)
   .get("/slingair/users?limit", getUsers)
-  .use((req, res) => res.send("Not Found"))
+  .post("/users", postUsers)
+  .use("*", (req, res) => res.send("Not Found"))
   .listen(PORT, () => console.log(`Listening on port ${PORT}`));

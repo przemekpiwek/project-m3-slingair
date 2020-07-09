@@ -100,8 +100,8 @@ const handleConfirmSeat = async (event) => {
       "Content-Type": "application/json",
     },
   });
-
-  //from response, redirect to url with jquery reservationid from response
+  const json = await response.json();
+  window.location = `./confirmed.html${json.id}`;
 };
 
 flightInput.addEventListener("change", toggleFormContent);
