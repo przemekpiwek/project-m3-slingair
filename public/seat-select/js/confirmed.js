@@ -13,10 +13,14 @@ const infoPopulator = async () => {
     },
   });
   const user = await response.json();
-  flightNumberEl.innerText = user.flight;
-  seatNumberEl.innerText = user.seat;
-  nameEl.innerText = `${user.givenName} ${user.surName}`;
-  emailEl.innerText = user.email;
+  if (user.status === "success") {
+    flightNumberEl.innerText = user.userObject.flight;
+    seatNumberEl.innerText = user.userObject.seat;
+    nameEl.innerText = `${user.userObject.givenName} ${user.userObject.surName}`;
+    emailEl.innerText = user.userObject.email;
+  } else {
+    console.log(user.status);
+  }
 };
 
 infoPopulator();

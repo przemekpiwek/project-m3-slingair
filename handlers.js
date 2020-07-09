@@ -14,7 +14,7 @@ const handleFlight = (req, res) => {
     try {
       res.status(200).send(flights[flightNumber]);
     } catch (err) {
-      res.status(404).send("Sorry, this flight does not exist");
+      res.status(404).send({ status: "error", error: err });
     }
   }
 };
@@ -24,9 +24,9 @@ const postUsers = (req, res) => {
     const data = req.body;
     data.id = uuidv4();
     reservations.push(data);
-    res.status(200).send(data);
+    res.status(200).json({ status: "success", data });
   } catch (err) {
-    res.status(400).send(err);
+    res.status(400).send({ status: "error", error: err });
   }
 };
 
@@ -34,9 +34,9 @@ const getUserRes = (req, res) => {
   try {
     const { reservation } = req.params;
     const userObject = reservations.find((res) => res.id === reservation);
-    res.status(200).json(userObject);
+    res.status(200).json({ status: "success", userObject });
   } catch (err) {
-    res.status(404).send("not working");
+    res.status(404).send({ status: "success", error: err });
   }
 };
 
