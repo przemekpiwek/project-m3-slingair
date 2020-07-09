@@ -4,7 +4,12 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 
-const { handleFlight, postUsers, getUserRes } = require("./handlers");
+const {
+  handleFlight,
+  postUsers,
+  getUserRes,
+  handle404,
+} = require("./handlers");
 
 const PORT = process.env.PORT || 8000;
 
@@ -27,7 +32,5 @@ express()
   .get(["/flights", "/flights/:flightNumber"], handleFlight)
   .get("/users/:reservation", getUserRes)
   .post("/users", postUsers)
-  .use("*", (req, res) =>
-    res.status(404).send("Sorry, Can't find what you're looking for.")
-  )
+  .use("*", handle404)
   .listen(PORT, () => console.log(`Listening on port ${PORT}`));

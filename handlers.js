@@ -40,8 +40,13 @@ const getUserRes = (req, res) => {
   }
 };
 
+const handle404 = (req, res) => {
+  res.status(404).send("Sorry, Can't find what you're looking for.");
+};
+
 module.exports = {
   handleFlight,
   postUsers,
   getUserRes,
+  handle404,
 };
